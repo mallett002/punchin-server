@@ -35,7 +35,7 @@ public class PunchInControllerRest {
             throw new RuntimeException("Something went wrong adding the project.");
         }
 
-        UriComponents uriComponents = builder.path("/todos").build();
+        UriComponents uriComponents = builder.path("/add-project").build();
 
         return ResponseEntity.created(uriComponents.toUri()).body(addedProject);
     }
