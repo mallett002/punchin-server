@@ -1,12 +1,18 @@
 package com.willmallett.punchin.entities;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class ProjectEntity {
-    private String id;
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "project_id", updatable = false, nullable = false)
+    private UUID id;
     private String title;
     private String color;
     private int punchIns;
@@ -14,14 +20,14 @@ public class ProjectEntity {
     private double totalPay;
     private String notes;
 
-    @Embedded
+    @OneToMany(fetch= FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "project")
     private List<TimeEntry> timeEntries;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

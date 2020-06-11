@@ -1,15 +1,25 @@
 package com.willmallett.punchin.entities;
 
-import javax.persistence.Embeddable;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Embeddable
 public class TimeEntry {
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "time_entry_id", updatable = false, nullable = false)
     private String id;
     private String date;
     private String timeStart;
     private String timeEnd;
     private String timeEntryTotal;
     private double timeEntryPay;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "project_id", nullable = false)
+    private ProjectEntity project;
 
     public String getId() {
         return id;
