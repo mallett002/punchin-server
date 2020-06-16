@@ -4,7 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Embeddable
+@Entity
+@Table(name = "tbl_time_entry")
 public class TimeEntry {
     @Id
     @GeneratedValue(generator = "UUID")
