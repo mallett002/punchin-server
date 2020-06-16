@@ -51,6 +51,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<finalName>PunchInService</finalName>
+					</configuration>
+				<version>2.3.0.RELEASE</version>
 			</plugin>
 		</plugins>
 	</build>
