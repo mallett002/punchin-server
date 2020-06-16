@@ -17,7 +17,7 @@ public class ProjectEntity {
     private String title;
     private String color;
     private int punchIns;
-    private String totalTime;
+    private int totalTime;
     private double totalPay;
     private String notes;
 
@@ -56,11 +56,11 @@ public class ProjectEntity {
         this.punchIns = punchIns;
     }
 
-    public String getTotalTime() {
+    public int getTotalTime() {
         return totalTime;
     }
 
-    public void setTotalTime(String totalTime) {
+    public void setTotalTime(int totalTime) {
         this.totalTime = totalTime;
     }
 

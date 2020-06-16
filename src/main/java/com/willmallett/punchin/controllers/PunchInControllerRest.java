@@ -1,6 +1,7 @@
 package com.willmallett.punchin.controllers;
 
 import com.willmallett.punchin.entities.ProjectEntity;
+import com.willmallett.punchin.entities.TimeEntry;
 import com.willmallett.punchin.services.PunchInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,21 @@ public class PunchInControllerRest {
             ProjectEntity savedProject = punchInService.addProject(project);
 
             return new ResponseEntity<>(savedProject, HttpStatus.CREATED);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @PutMapping("/projects/{id}/add-time-entry")
+    public ResponseEntity<ProjectEntity> addTimeEntry(@PathVariable("id") UUID projectId, @RequestBody TimeEntry timeEntry) {
+        try {
+            ProjectEntity project = punchInService.addTimeEntryForProject(projectId, timeEntry);
+
+            if (project != null) {
+                return new ResponseEntity<>(project, HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
             return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
         }

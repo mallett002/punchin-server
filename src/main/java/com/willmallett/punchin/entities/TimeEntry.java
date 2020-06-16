@@ -15,7 +15,7 @@ public class TimeEntry {
     private String date;
     private String timeStart;
     private String timeEnd;
-    private String timeEntryTotal;
+    private int timeEntryTotal;
     private double timeEntryPay;
 
     @ManyToOne(fetch= FetchType.LAZY)
@@ -54,11 +54,11 @@ public class TimeEntry {
         this.timeEnd = timeEnd;
     }
 
-    public String getTimeEntryTotal() {
+    public int getTimeEntryTotal() {
         return timeEntryTotal;
     }
 
-    public void setTimeEntryTotal(String timeEntryTotal) {
+    public void setTimeEntryTotal(int timeEntryTotal) {
         this.timeEntryTotal = timeEntryTotal;
     }
 
