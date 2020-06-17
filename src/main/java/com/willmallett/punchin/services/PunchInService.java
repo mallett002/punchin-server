@@ -29,7 +29,7 @@ public class PunchInService {
 
         if (optionalProjectEntity.isPresent()) {
             ProjectEntity project = optionalProjectEntity.get();
-            project.getTimeEntries().add(timeEntry);
+            project.addTimeEntry(timeEntry);
             project.setPunchIns(project.getPunchIns() + 1);
             project.setTotalPay(project.getTotalPay() + timeEntry.getTimeEntryPay());
             project.setTotalTime(project.getTotalTime() + timeEntry.getTimeEntryTotal());

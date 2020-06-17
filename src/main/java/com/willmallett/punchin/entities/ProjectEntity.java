@@ -1,5 +1,6 @@
 package com.willmallett.punchin.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,7 +23,21 @@ public class ProjectEntity {
     private String notes;
 
     @OneToMany(fetch= FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "project")
+    @JsonManagedReference
     private List<TimeEntry> timeEntries;
+
+    public void addTimeEntry(TimeEntry timeEntry) {
+        timeEntries.add(timeEntry);
+        timeEntry.setProject(this);
+    }
+
+    public List<TimeEntry> getTimeEntries() {
+        return timeEntries;
+    }
+
+    public void setTimeEntries(List<TimeEntry> timeEntries) {
+        this.timeEntries = timeEntries;
+    }
 
     public UUID getId() {
         return id;
@@ -78,13 +93,5 @@ public class ProjectEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public List<TimeEntry> getTimeEntries() {
-        return timeEntries;
-    }
-
-    public void setTimeEntries(List<TimeEntry> timeEntries) {
-        this.timeEntries = timeEntries;
     }
 }
