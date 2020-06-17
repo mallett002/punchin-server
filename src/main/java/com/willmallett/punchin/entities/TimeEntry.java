@@ -1,5 +1,6 @@
 package com.willmallett.punchin.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,7 +21,16 @@ public class TimeEntry {
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false)
+    @JsonBackReference
     private ProjectEntity project;
+
+    public void setProject(ProjectEntity project) {
+        this.project = project;
+    }
+
+    public ProjectEntity getProject() {
+        return project;
+    }
 
     public String getId() {
         return id;
