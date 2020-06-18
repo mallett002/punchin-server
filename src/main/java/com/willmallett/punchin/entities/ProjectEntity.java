@@ -22,13 +22,28 @@ public class ProjectEntity {
     private double totalPay;
     private String notes;
 
-    @OneToMany(fetch= FetchType.LAZY, cascade = {CascadeType.ALL}, mappedBy = "project")
+    @OneToMany(
+        fetch= FetchType.LAZY,
+        orphanRemoval = true,
+        cascade = {CascadeType.ALL},
+        mappedBy = "project"
+    )
     @JsonManagedReference
     private List<TimeEntry> timeEntries;
 
     public void addTimeEntry(TimeEntry timeEntry) {
         timeEntries.add(timeEntry);
         timeEntry.setProject(this);
+    }
+
+    public void deleteTimeEntry(UUID id) {
+        timeEntries.remove(getTimeEntryById(id));
+    }
+
+    public TimeEntry getTimeEntryById(UUID id) {
+        return getTimeEntries().stream()
+            .filter(entry -> entry.getId().equals(id))
+            .findAny().orElse(null);
     }
 
     public List<TimeEntry> getTimeEntries() {

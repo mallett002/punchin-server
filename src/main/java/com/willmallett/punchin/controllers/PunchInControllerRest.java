@@ -55,12 +55,30 @@ public class PunchInControllerRest {
         }
     }
 
-    @DeleteMapping(value = "/projects/{id}")
+    @DeleteMapping("/projects/{id}")
     public ResponseEntity<HttpStatus> deleteProjectById(@PathVariable("id") UUID id) {
         try {
             punchInService.deleteProjectById(id);
 
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @DeleteMapping("/projects/{projectId}/timeEntries/{timeEntryId}")
+    public ResponseEntity<ProjectEntity> deleteTimeEntry(
+        @PathVariable("projectId") UUID projectId,
+        @PathVariable("timeEntryId") UUID timeEntryId
+    ) {
+        try {
+            ProjectEntity project = punchInService.deleteTimeEntry(projectId, timeEntryId);
+
+            if (project != null) {
+                return new ResponseEntity<>(project, HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }

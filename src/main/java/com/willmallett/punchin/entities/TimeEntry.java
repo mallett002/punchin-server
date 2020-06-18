@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tbl_time_entry")
@@ -12,7 +13,7 @@ public class TimeEntry {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "time_entry_id", updatable = false, nullable = false)
-    private String id;
+    private UUID id;
     private String date;
     private String timeStart;
     private String timeEnd;
@@ -32,11 +33,11 @@ public class TimeEntry {
         return project;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

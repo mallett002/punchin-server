@@ -43,4 +43,25 @@ public class PunchInService {
     public void deleteProjectById(UUID id) {
         punchInRepository.deleteById(id);
     }
+
+    public ProjectEntity deleteTimeEntry(UUID projectId, UUID timeEntryId) {
+        Optional<ProjectEntity> optionalProjectEntity = punchInRepository.findById(projectId);
+
+        if (optionalProjectEntity.isPresent()) {
+            ProjectEntity project = optionalProjectEntity.get();
+
+            TimeEntry timeEntry = project.getTimeEntryById(timeEntryId);
+
+            if (timeEntry != null) {
+                project.deleteTimeEntry(timeEntryId);
+                project.setPunchIns(project.getPunchIns() - 1);
+                project.setTotalPay(project.getTotalPay() - timeEntry.getTimeEntryPay());
+                project.setTotalTime(project.getTotalTime() - timeEntry.getTimeEntryTotal());
+
+                return punchInRepository.save(project);
+            }
+        }
+
+        return null;
+    }
 }
