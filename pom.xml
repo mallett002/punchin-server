@@ -14,9 +14,9 @@
 	<name>punchin</name>
 	<description>Tracks work and billing hours</description>
 
-	<properties>
-		<java.version>14</java.version>
-	</properties>
+<!--	<properties>-->
+<!--		<java.version>14.0.1</java.version>-->
+<!--	</properties>-->
 
 	<dependencies>
 		<dependency>
@@ -27,7 +27,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -55,6 +54,18 @@
 						<finalName>PunchInService</finalName>
 					</configuration>
 				<version>2.3.0.RELEASE</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals><goal>copy-dependencies</goal></goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
