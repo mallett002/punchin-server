@@ -21,6 +21,7 @@ public class ProjectEntity {
     private int totalTime;
     private double totalPay;
     private String notes;
+    private double payRate;
 
     @OneToMany(
         fetch= FetchType.LAZY,
@@ -108,5 +109,13 @@ public class ProjectEntity {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public double getPayRate() {
+        return payRate;
+    }
+
+    public void setPayRate(double payRate) {
+        this.payRate = payRate;
     }
 }
