@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 public class PunchInControllerRest {
     @Autowired
