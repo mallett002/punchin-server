@@ -1,5 +1,6 @@
 package com.willmallett.punchin.services;
 
+import com.willmallett.punchin.dtos.Note;
 import com.willmallett.punchin.entities.ProjectEntity;
 import com.willmallett.punchin.entities.TimeEntry;
 import com.willmallett.punchin.repositories.PunchInRepository;
@@ -33,6 +34,19 @@ public class PunchInService {
             project.setPunchIns(project.getPunchIns() + 1);
             project.setTotalPay(project.getTotalPay() + timeEntry.getTimeEntryPay());
             project.setTotalTime(project.getTotalTime() + timeEntry.getTimeEntryTotal());
+
+            return punchInRepository.save(project);
+        }
+
+        return null;
+    }
+
+    public ProjectEntity updateNoteForProject(UUID projectId, Note note) {
+        Optional<ProjectEntity> optionalProjectEntity = punchInRepository.findById(projectId);
+
+        if (optionalProjectEntity.isPresent()) {
+            ProjectEntity project = optionalProjectEntity.get();
+            project.setNotes(note.getNote());
 
             return punchInRepository.save(project);
         }
