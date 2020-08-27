@@ -1,5 +1,6 @@
 package com.willmallett.punchin.controllers;
 
+import com.willmallett.punchin.dtos.Note;
 import com.willmallett.punchin.entities.ProjectEntity;
 import com.willmallett.punchin.entities.TimeEntry;
 import com.willmallett.punchin.services.PunchInService;
@@ -45,6 +46,21 @@ public class PunchInControllerRest {
     public ResponseEntity<ProjectEntity> addTimeEntry(@PathVariable("id") UUID projectId, @RequestBody TimeEntry timeEntry) {
         try {
             ProjectEntity project = punchInService.addTimeEntryForProject(projectId, timeEntry);
+
+            if (project != null) {
+                return new ResponseEntity<>(project, HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    @PutMapping("/projects/{id}/add-note")
+    public ResponseEntity<ProjectEntity> addTimeEntry(@PathVariable("id") UUID projectId, @RequestBody Note note) {
+        try {
+            ProjectEntity project = punchInService.updateNoteForProject(projectId, note);
 
             if (project != null) {
                 return new ResponseEntity<>(project, HttpStatus.OK);
