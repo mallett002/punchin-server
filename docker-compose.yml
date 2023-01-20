@@ -1,1 +1,13 @@
-# Todo: Add database & app itself
+# A Docker Compose must always start with the version tag.
+# We use '3' because it's the last version.
+version: '3'
+
+services:
+  punchin-db:
+    image: 'postgres:latest'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: DrumsAreFun211
+#      POSTGRES_DB: punchin-db # The PostgreSQL default database (automatically created at first launch)
